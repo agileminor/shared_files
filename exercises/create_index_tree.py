@@ -75,7 +75,7 @@ def return_index(current_node, word):
     Returns:
         A tuple of the word found, which should match the input word and an integer representing the associated index value.
     """
-    if len(word) > 5:
+    if len(word) > 5 or len(word) == 0:
         return (word,0)
     for letter in word:
         if letter in current_node.children:
