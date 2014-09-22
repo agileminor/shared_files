@@ -48,7 +48,6 @@ def calc_min_index(word):
         term1 =  calc_index(prev_word)
         term2 =  calc_index(max_seg[len(word)-1]) 
         term3 =  calc_index(calc_prev_word(prev_word[1:]))
-        word_dict[word] = term1 + term2 - term3
         return term1 + term2 - term3
 #        return calc_index(prev_word) + calc_index(max_seg[len(word)-1]) - calc_prev_word(prev_word[1:])
 
@@ -80,4 +79,5 @@ def calc_index(word):
 print calc_index("abc") # correct
 print calc_index("acd") # correct
 print calc_index("ayz") # correct
+print calc_index("yz") # correct
 print calc_index("bcd") #incorrect - should be 652
