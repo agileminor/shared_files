@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 
 import sys
-from code_jam_io import read_input
-from code_jam_io import write_output
-
-num_cases, contents = read_input()
+read_file = sys.argv[1]
+read_handle = open(read_file,'r')
+contents = []
+for line in read_handle:
+    spline = line.split()
+    contents.append(spline)
+num_cases = int(contents[0][0])
 output = []
 for i in range(1,num_cases+1):
     counter = 2.0
@@ -28,6 +31,9 @@ for i in range(1,num_cases+1):
     #    print i, finish_time, farm_time, prev_comp_time, comp_time, cum_time, counter
     output.append("Case #" + str(i) + ": %.7f" % prev_comp_time)
 
-write_output(output)
+write_handle = open(sys.argv[2],'w')
+for item in output:
+    write_handle.write(item)
+    write_handle.write('\n')
 
 
