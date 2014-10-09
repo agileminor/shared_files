@@ -35,7 +35,19 @@ for i in range(1,num_cases+1):
             full_grid[count][0] = "."
             count += 1
             empty_cells -= 1
-    elif empty_cells <= C * 2 - 1:
+    elif C == 2:
+        if empty_cells % 2 == 0:
+            output.append("Case #" + str(i) + ": Impossible!")
+        else:
+            temp = (empty_cells + 1) / 2
+            full_grid[0][1] = "."
+            for i in range(1,temp+1):
+                full_grid[i][0] = "."
+                full_grid[i][1] = "."
+            output.append("Case #" + str(i) + ":")
+            for i in range(R):
+                output.append(full_grid[i])
+    elif empty_cells <= C * 2 - 1: # need to add fixes for R > 2
         if empty_cells % 2 == 0:
             output.append("Case #" + str(i) + ": Impossible!")
         else:
