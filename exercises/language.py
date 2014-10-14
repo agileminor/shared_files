@@ -19,8 +19,10 @@ lang_words = [word[0] for word in contents[1:D+1]]
 print lang_words
 test_words = [word[0] for word in contents[D+1:]]
 print test_words
+word_dict = {}
 
 for word in lang_words:
+    word_dict[word] = 1
     current_node = start_node
     for letter in word:
         if letter in current_node.children:
@@ -49,25 +51,25 @@ for word in test_words:
 print eval_words
 case = 1
 for test_word in eval_words:
+    score = 0
     word_list = [[[],start_node]]
-    current_node = start_node
+    queue = [[[],start_node]]
     # switch to using queue instead of for looks
     # while queue is not empty, pop item off queue, add letter add on to back of queue
     # complex because of multiple letters, similar to jumble
-    for item in test_word:
-        for word in word_list:
-            print "word", word, "in", word_list, item, "in", test_word
-            letter_added = False
+    while queue != []:
+        current_item = queue[0]
+        queue = queue[1:]
+        for item in test_word:
             for letter in item:
-                print "letter is ", letter
-                if letter in word[1].children:
-                    word[0].append(letter)
-                    word[1] = word[1].children[letter]
-                    letter_added = True
-            if not(letter_added):
-                print "removing", word
-                word_list.remove(word)
-    output.append("Case #" + str(case) + ": %i" % len(word_list))
+                if letter in current_item[1].children:
+                    new_word = current_item[0][:]
+                    new_word.append(letter)
+                    if "".join(new_word) in word_dict:
+                        score += 1
+                    else:
+                        queue.append([new_word,current_item[1].children[letter]])
+    output.append("Case #" + str(case) + ": %i" % score )
     case += 1
 write_output(output)
 
