@@ -48,18 +48,24 @@ for word in test_words:
     eval_words.append(temp_word)
 print eval_words
 case = 1
-for word in eval_words:
+for test_word in eval_words:
     word_list = [[[],start_node]]
     current_node = start_node
-    for item in word:
+    # switch to using queue instead of for looks
+    # while queue is not empty, pop item off queue, add letter add on to back of queue
+    # complex because of multiple letters, similar to jumble
+    for item in test_word:
         for word in word_list:
+            print "word", word, "in", word_list, item, "in", test_word
             letter_added = False
             for letter in item:
+                print "letter is ", letter
                 if letter in word[1].children:
                     word[0].append(letter)
                     word[1] = word[1].children[letter]
                     letter_added = True
             if not(letter_added):
+                print "removing", word
                 word_list.remove(word)
     output.append("Case #" + str(case) + ": %i" % len(word_list))
     case += 1
