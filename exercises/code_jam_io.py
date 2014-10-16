@@ -1,14 +1,20 @@
 #!/usr/bin/env python
 
 import sys
-def read_input():
+def read_input(strip=True):
     read_file = sys.argv[1]
     read_handle = open(read_file,'r')
     contents = []
     for line in read_handle:
-        spline = line.split()
-        contents.append(spline)
-    num_cases = int(contents[0][0])
+        if strip:
+            spline = line.split()
+            contents.append(spline)
+        else:
+            contents.append(line.strip())
+    if strip:
+        num_cases = int(contents[0][0])
+    else:
+        num_cases = int(contents[0])
     return num_cases, contents
 
 
