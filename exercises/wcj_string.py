@@ -8,9 +8,9 @@ num_cases, contents = read_input(False)
 print contents
 output = []
 target_string = "welcome to code jam"
-output_array = [0] * len(target_string)
 for i in range(1,num_cases+1):
     check_string = contents[i]
+    output_array = [0] * len(target_string)
     for letter in check_string:
         count = 0
         for check_letter in target_string:
