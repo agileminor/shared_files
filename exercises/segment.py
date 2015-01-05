@@ -17,16 +17,20 @@ for case in range(1,num_cases+1):
     for segment in segments:
         lit = [a for a in range(7) if segment[a] == "1"]
         print lit
+        remove_list = []
         for check_valid in valid:
             for one in lit:
                 if one in blanks[check_valid]:
-                    valid.remove(check_valid)
+                    print "removing", check_valid, one
+                    remove_list.append(check_valid)
                     break
-        valid = [(a+1)%7 for a in valid]
+        for value in remove_list:
+            valid.remove(value)
+        valid = [(a-1)%10 for a in valid]
     if len(valid) == 1:
         result = seg_dic[valid[0]]
     else:
-        result = "ERROR!"
+        result = "ERROR!" # need to add figuring out broken segment
 
     #    print i, finish_time, farm_time, prev_comp_time, comp_time, cum_time, counter
     output.append("Case #" + str(case) + ": %s" % result)
