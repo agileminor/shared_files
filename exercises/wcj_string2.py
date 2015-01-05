@@ -22,12 +22,13 @@ for case in range(1,num_cases+1):
                 output_array[i][j] = output_array[i-1][j]
             else:
                 output_array[i][j] = output_array[i-1][j] + output_array[i-1][j-1]
-        
-    print output_array[check_len-1][target_len-1]
+    result = str(output_array[check_len-1][target_len-1] % 10000)
+    fill = "0" * (4 - len(result))   
+    print fill + result
 
     results = 0.0
     #    print i, finish_time, farm_time, prev_comp_time, comp_time, cum_time, counter
-    output.append("Case #" + str(i) + ": %.7f" % results)
+    output.append("Case #" + str(case) + ": " +fill + result)
 
 write_output(output)
 
