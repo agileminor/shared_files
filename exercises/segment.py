@@ -47,14 +47,12 @@ for case in range(1,num_cases+1):
 
     if len(result_list) == 1:
 #        print broken
-
         result = seg_dic[result_list[0][0]]
         for broken_seg in result_list[0][1]:
             result = result[:broken_seg] + "0" + result[broken_seg + 1:]
     else:
         result = "ERROR!" # need to add figuring out broken segment
 
-    #    print i, finish_time, farm_time, prev_comp_time, comp_time, cum_time, counter
     output.append("Case #" + str(case) + ": %s" % result)
 
 write_output(output)
