@@ -44,12 +44,18 @@ for case in range(1,num_cases+1):
             if terminate_segments == False:
 #                print "adding", current_check
                 result_list.append((current_check, broken))
-
-    if len(result_list) == 1:
+    result_dic = {}
+    for result in result_list:
+        result_dec = result[0]
+        result_seg = seg_dic[result_dec]
+        broken_list = result[1]
+        for broken_seg in broken_list:
+            result_seg = result_seg[:broken_seg] + "0" + result_seg[broken_seg + 1:]
+        if result_seg not in result_dic:
+            result_dic[result_seg] = 1
+    if len(result_dic.keys()) == 1:
 #        print broken
-        result = seg_dic[result_list[0][0]]
-        for broken_seg in result_list[0][1]:
-            result = result[:broken_seg] + "0" + result[broken_seg + 1:]
+        result = result_dic.keys()[0]
     else:
         result = "ERROR!" # need to add figuring out broken segment
 
