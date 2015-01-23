@@ -3,39 +3,53 @@
 import sys
 from code_jam_io import read_input
 from code_jam_io import write_output
+from UnionFind import UnionFind
+from sieve import sieve
 
-primes = [2,[2]]
-def sieve(max):
-    primes = range(2,max+1)
-    index = 0
-    current = 2
-    while current < max:
-        inner_index = 2
-        while current*inner_index <= max:
-            if current * inner_index in primes:
-                primes.remove(current*inner_index)
-            inner_index += 1
-        index += 1
-        if index == len(primes):
-            break
-        current = primes[index]
-    return primes
+
+def calc_prime_factor(x, primes, P):
+    return {a for a in primes if (a <= x/2 or a == x) and x %a == 0 and a >= P}
+
 
 
 num_cases, contents = read_input()
 output = []
 contents = contents[1:]
-print contents
+#print contents
 for case in range(1,num_cases+1):
     A = int(contents[0][0])
     B = int(contents[0][1])
     P = int(contents[0][2])
     contents = contents[1:]
-    print A, B, P
-    print sieve(30)
-    results = 0.0
+    #print A, B, P
+    print "sieve for ", B-A
+    primes = sieve(B - A)
+    print "trimming primes"
+    primes = [a for a in primes if a >= P]
+    print "calculating factors"
+    primes_dict = {item: calc_prime_factor(item, primes, P) for item in range(A, B+1)}
+    #print primes_dict
+    print "creating UnionFind"
+    set_list = UnionFind()
+    for item in range(A, B+1):
+        set_list.makeSet([item])
+    set_dict = {prime: [] for prime in primes}
+    print "creating sets"
+    for item in range(A,B+1):
+        for prime in primes_dict[item]:
+            set_dict[prime].append(item)
+    #print set_dict
+    #print set_list.getNumGroups()
+    print "reducing sets"
+    for item in set_dict:
+        temp_list = set_dict[item]
+        if len(temp_list) > 1:
+            for new_item in temp_list:
+                set_list.union(temp_list[0],new_item)
+    results = set_list.getNumGroups()
+    #print results
     #    print i, finish_time, farm_time, prev_comp_time, comp_time, cum_time, counter
-    output.append("Case #" + str(case) + ": %.7f" % results)
+    output.append("Case #" + str(case) + ": %i" % results)
 
 write_output(output)
 
