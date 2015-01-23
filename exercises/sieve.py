@@ -22,7 +22,7 @@ def sieve(max):
     current = 2
     index = 0
     while current < max:
-        print current
+#        print current
         prime1 = primes[:index]
         prime2 = [a for a in primes[index:] if (a == current or a % current != 0)]
         primes = prime1 + prime2
