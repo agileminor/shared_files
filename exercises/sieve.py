@@ -32,3 +32,13 @@ def sieve(max):
         current = primes[index]
 
     return primes
+
+def sieve3(max): # from stack overflow
+    primes = []
+    valid = [True] * (max + 1)
+    for value in range(2, max + 1):
+        if valid[value]:
+            primes.append(value)
+            for i in range(value * value, max + 1, value):
+                valid[i] = False
+    return primes
